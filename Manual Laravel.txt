@@ -1,0 +1,503 @@
+------Instalar Laravel ---------
+1) Descargar Composer.
+
+2) Luego de instalarlo crear un nuevo directorio donde se va ubicar el proyecto de Laravel.
+
+3) Despues de crearlo ubicarse en la ruta donde se creo la nueva carpeta y tipear el siguiente comando para instalar Laravel:
+	"composer create-project laravel/laravel –-prefer-dist"
+
+4) Ejecutar el servicio de Laravel ubicandose en la carpeta donde se descargaron los archivos y usando el siguiente comando:
+	"php artisan serve"
+
+5) Copiar la URL y abrirla en el navegador, si aparece la pantalla de Laravel fue corractamente instalado.
+
+----- Configuracion Basica ------
+	
+------ Enrutamiento Basico ------
+
+El enrutamiento direcciona la aplicacion al controlador adecuado. Las rutas de la aplicacion se definen en "app/Http/routes.php "
+La syntax para cada posible peticion son: 
+
+Route::get('/', function () {
+   return 'Hello World';
+});
+
+Route::post('foo/bar', function () {
+   return 'Hello World';
+});
+
+Route::put('foo/bar', function () {
+   //
+});
+
+Route::delete('foo/bar', function () {
+   //
+});
+
+Usualmente en la aplicacion, se pretende capturar los parametros enviados en el URL. Para hacer esto se necesita modificar el codigo en routes.php segun sea el caso.
+Existen dos formas de capturar los parametros enviados en la URL.
+
+*Parametros Requeridos.
+*Parametros Opcionales.
+
+Parametros Requeridos: Estos deben estar presentes en la URL. Por ejemplo, se pretende capturar el ID del URL para hacer algo con el. Este seria el ejemplo de codigo en routes.php para ese proposito:
+
+Route::get('ID/{id}',function($id){
+   echo 'ID: '.$id;
+});
+
+Cualquier argumento que pasemos luego de la URL raiz (http://localhost:8000/ID/5), sera almacenado en $id y se puede utilizar ese parametro para futuros procesos, pero aqui simplemente se esta mostrando. Podemos pasar vista o controladores para futuros procesos.
+
+Parametros Opcionales: Existen parametros que pueden o no estar presentes en la URL y en dichos casos podemos utilizar los parametros opcionales. La presencia de estos parametros no son necesarios en la URL. Estos parametros estan indicados con el signo "?" despues del nombre del parametro. Este seria un ejemplo de codigo en routes.php para este proposito:
+Route::get('/user/{name?}',function($name = 'Virat'){
+   echo "Name: ".$name;
+});
+
+Como puedes imaginar, existen casos en los que te puede interesar registrar una ruta que tenga validez con varios verbos, indicando una única función que los resuelva todos. Esto se puede conseguir mediante dos métodos distintos.
+
+Route::match(['get', 'post, 'put''], '/testing', function () {
+    echo  'Ruta testing para los verbos GET, POST, PUT';
+});
+Como puedes apreciar, el método match requiere un parámetro adicional, el primero, en el que indicamos un array con los verbos que queremos aplicar a esta ruta.
+
+Por otra parte tenemos el método any, que es como un comodín, que sirve para cualquier tipo de verbo del HTTP.
+
+Route::any("/cualquiercosa", function(){
+	echo 'La ruta /cualquiercosa asociada a cualquier verbo';
+});
+
+----- Definir Middleware -----
+
+Como su nombre lo sugiere, Middleware actua como el hombre entre la peticion y la respuesta. Es un tipo de mecanismo de filtro. Por ejemplo, Laravel incluye un middleware que verifica si el usuario de la aplicacion esta autenticado o no. Si el usuario esta autenticado, sera redirigido a la pagina principal de lo contrario, sera redirigido a la pagina de login.
+
+Middleware puede ser creado ejecutando el siguiente comando:
+
+"php artisan make:middleware <middleware-name>"
+
+Donde <middleware-name> se remplaza con el nombre del middleware. El middleware creado se puede ver en el directorio app/Http/Middleware.
+
+*Registro de Middleware
+Necesitamos registrar todos y cada uno de los middleware antes de usarlos. Hay dos tipos de middleware en Laravel:
+ 	
+	-Middleware globales.
+	-Middleware de ruta.
+
+El middleware global correra en cualquier peticion HTTP de la aplicacion, mientras que el middleware de rutas sera asignado a una ruta especifica. Los middleware pueden ser registrados en app/Http/Kernel.php. Esta fila contiene dos propiedades $middleware y $routemiddleware. La primera es utilizada para registrar middleware globales y la segunda para middlewares especificos de una ruta.
+
+Para registrar el middleware global, lista la clase al final de la propiedad $middleware.
+
+*Parametros del Middleware.
+
+1) Se crea el middleware.
+2) Se define la funcion que realizara el middleware
+3) Se registra en el Kernel.php
+4) Se crea un TestController mediante el comando "php artisan make:controller nombrecontrolador"
+5) Se define la funcion del nombrecontrolador.
+6) Se define la ruta de acceso al controlador.
+
+*Middleware Terminable.
+
+Este realiza alguna tarea luego que la respuesta a sido enviada al navegador. Esto se puede realizar creando un middleware con el metodo "terminate". El middleware terminable debe estar registrado en las middleware globales. El metodo terminar recibe dos argumentos $request y $response. El metodo terminar puede crearse de la siguiente forma:
+
+1) Crear el middleware terminal con el siguiente comando "php artisan make:middleware TerminateMiddleware
+2) Definir la funcion que realizara el middleware.
+4) Se crea un TestController mediante el comando "php artisan make:controller nombrecontrolador"
+5) Se define la funcion del nombrecontrolador.
+6) Se define la ruta de acceso al controlador.
+
+---- Controladores: Lo basico -----
+
+En los frameworks MVC, la letra 'C' es de controlador. Actua como un director de trafico entre las vistas y el modelo. 
+
+********** Creando un controlador **************
+
+Abre el terminal y tipea el siguiente comando "php artisan make:controller nombrecontrolador". El controlador creado estara ubicado en app/http/controllers. Veras que un codigo basico ya estara hecho puediendo agregar el codigo customizado. El controlador creado puede ser llamado mediante routes.php con la siguiente syntax.
+"Route::get('base URL','controller@method');
+
+Se puede agregar middleware al propio controlador de la siguiente forma:
+Route::get('profile', [
+   'middleware' => 'auth',
+   'uses' => 'UserController@showProfile'
+]); ------ Aqui se le asigna el middleware por ruta al controlador
+
+<?php
+namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+class UserController extends Controller {
+   public function __construct(){
+      $this->middleware('auth');
+   }
+} ------ Aqui se le asigna mediante el constructor del controlador.
+
+----------- Vistas ---------------
+Las vistas son las salidas de Laravel o de forma mas coloquial "Lo que ve el usuario" usualemente son las paginas que llevan todo el html con cosas precisas en php.
+Las vistas se almacenan en el directorio "resources/views" de laravel, es aqui donde deben crearse todas las vistas que llevara la aplicacion. Dentro de esta carpeta bien se puede crear los archivos directamente o crear nuevas carpetas que permitan llevar un mayor orden de las vistas.
+La terminacion de estas listas debe ser en ".php" o ".blade.php" esta segunda es el motor de plantillas de laravel.
+Para invocar dicha vista se debe entrar en el archivo routes.php y agregar la direccion de la vista. Ejemplo:
+
+Para una vista llamado "algo.php" esta seria la forma de llamarla.
+
+Route::get('algo', function () {
+    return view('algo');
+});
+
+En caso de pasar datos en la vista se hace modifica la funcion view convirtiendola en un array asociativo:
+view('calendario.eventos', [
+    	'mes' => $mes,
+    	'ano' => $ano,
+    	'eventos' => $eventos
+]);
+
+Imprimiendose en la pagina de la vista de la siguiente manera: 
+<p>
+    Estás viendo el mes <?= $mes; ?> y el año <?= $ano; ?>.
+</p>
+
+------------- Request --------------
+
+Laravel nos facilita todos los datos de la solicitud actual a través HTTP Request, un objeto sobre el que podremos consultar información sobre el cliente que realiza la solicitud y datos que pueda estar enviando.
+
+El metodo "path" es usado para recuperar el URI pedido. El metodo "is"es usado para recuperar el URI pedido que coincide con el patron particular especificado en el argumento del metodo. Para obtener el URL completo, podemos utilizar el metodo "url".
+
+****** Recuperando Input ************
+
+Los valores de entrada pueden ser facilmente recuperados en Laravel. No importa que metodo fue usado sea "get" o "post", el metodo de Laravel va a recueprar la informacion de entrada para ambos metodos de igual manera. Hay dos formas que podemos recueperar los datos de entrada.
+	Usando el metodo "input()"
+	Usando las propiedades de la instancia "Request"
+
+*Usando el metodo input()
+El metodo input() toma un argumento, el nombre del campo del formulario. Por ejemplo, si el formulario contiene el campo "username" entonces podemos acceder de la siguiente manera.
+"name = $request ->input('username');"
+
+*Usando las propiedades de la instancia Request
+Igual que con el metodo input(), podemos obtener la propiedad username directamente de la instancia de pedido.
+"$request->username"
+
+--------------- Cookies -------------
+
+Una cookie puede ser creada utilizando el asistente global de cookie de Laravel. La cookie puede ser agregada a la respuesta usando el metodo witchCookie(). Se debe crear una instancia de respuesta de la clase Illuminate\Http\Response para llamar la funcion withCookie(). Las cookies generadas en laravel estan encriptadas y firmadas y no pueden ser modificadas o leidas por el cliente.
+
+Un ejemplo de codigo para una cookie:
+
+ //Create a response instance
+$response = new Illuminate\Http\Response('Hello World');
+
+//Call the withCookie() method with the response method
+$response->withCookie(cookie('name', 'value', $minutes));
+
+//return the response
+return $response;
+
+El metodo Cookie() requiere 3 argumentos. El primer argumento es el nombre de la cookie, el segundo argumento es el valor de la cookie y el tercer argumento es la duracion de la cookie la cual cumplida eliminara la cookie atumaticamente.
+
+Una cookie puede ser programada para un tiempo infinito utilizando el siguiente codigo: 
+
+$response->withCookie(cookie()->forever('name', 'value'));
+
+************* Recuperando Cookie ***********
+
+Una vez establecida la cookie, se puede recuperar con el metodo cookie(). Este metodo cookie() necesitara unicamente un argumento que sera el nombre de la cookie. El metodo cookie puede ser utilizado usando la instancia de Illuminate\Http\Request
+
+Un ejemplo de codigo: 
+//’name’ is the name of the cookie to retrieve the value of
+$value = $request->cookie('name');
+
+------------- Responses ------------------
+POR AHORA DEJARE EL ESPACIO NADA MAS
+
+----------- Redirecciones ----------
+
+************* A una ruta especifica ************
+
+Se puede dar un nombre especifico a una ruta para acceder mas facil a ella. El nombre puede ser asignado usando la clave array 'as'.
+
+Route::get('user/profile', ['as' => 'profile', function () {
+   //
+}]);
+
+Nota: Aqui se le asigna el nombre "profile" a la ruta "user/profile"
+
+************ A una accion de controlador ***********
+
+No solo se puede redirigir a nombres de rutas tambien se puede redirigir a una accion de un controlador. Para hacerlo necesitamos simplemente pasar el controlador y el nombre de la accion al metodo de accion. Si se quiere pasar un parametro, puedes pasarlo como segundo argumento del metodo de accion.
+ejemplo:
+return redirect()->action(‘NameOfController@methodName’,[parameters]);
+
+------------- Validaciones -------------
+
+Una de las necesidades fundamentales de cualquier aplicación en general, y aplicaciones web en particular, son las validaciones de la entrada de datos del usuario. Obviamente en Laravel se toman muchas molestias por proporcionarnos métodos de validación sencillos y potentes. Además no existe una única vía, por lo que habrá distintos caminos para realizar una validación.
+
+Dentro del trait "ValidatesRequests" hay un método que nos sirve para hacer validaciones de los datos que nos llegan mediante HTTP Request, llamado validate(). Por tanto, en todos nuestros controladores podremos invocar este método para realizar validaciones de datos de entrada.
+
+El método validate() recibe dos parámetros:
+
+El objeto Request 
+Las reglas de validación que queramos definir.
+
+ Como llaves (key) del array usamos el nombre del campo que deseamos validar (atributo "name" de los campos de formulario) y como valores indicamos todas las reglas que se deben comprobar en dicho campo para considerarlo correcto.
+ejemplo:
+ $this->validate($request, [
+        'nombre' => 'required|max:255',
+        'descripcion' => 'required',
+        'precio' => 'required|numeric',
+    ]);
+
+Todas las validaciones posibles estan en la documentacion de Laravel. Consultar cada vez que se vaya a realizar una.
+
+************* Validacion por Request ***************
+
+Las Requests que podemos crear, al extender la Request, disponen de la misma funcionalidad que ya conocemos. Pero además, en esas clases Request que crearemos a partir de ahora vamos a incluir código necesario para las validaciones específicas de ese tipo de entrada. Por ejemplo, una de las Requests podrá ser para validar los datos del usuario, otra para validar datos de un producto, un post, o lo que sea necesario.
+
+Son muchos los puntos que mejora este sistema de validación, pero básicamente debemos señalar:
+
+Separación del código. Es la base de muchos patrones de diseño y nos permite mantener clases más simples, más desacopladas y por tanto de más fácil mantenimiento. 
+Reutilización, al poder usar esa misma request en cualquier parte donde estemos recibiendo ese tipo de entrada de usuario. Por ejemplo, cada vez que reciba datos de un usuario podré usar la request del usuario.
+
+Para crear estas validaciones: 
+1) Ejecutar el siguiente comando en consola "php artisan make:request nombrerequest"
+2) Definir el comportamiento de esa validacion.
+3) Agregar el "use" correspondiente "App\Http\Requests\nombrerequest";
+
+------------ Bases de Datos ----------------------
+
+Laravel simplifica el trabajo con bases de datos. Actualemente soporta los 4 siguientes formatos de bases de datos. 
+MySQL
+Postgres
+SQLite
+SQL Server
+
+Las consultas a las bases de datos se pueden hacer mediante SQL crudo, el fluid query builder y el ORM Eloquent.
+
+Poder crear tablas, campos y llenarlas con datos de prueba es un proceso un poco largo, pero para nada dificil.
+
+1) Crear el modelo mediante el uso del siguiente comando "php artisan make:model NombreModelo". Esto permitira crear un objeto sobre el cual se podra agregar y quitar elementos.
+
+2) El modelo debe de estar relacionado a una tabla de la bd, el nombre de esta tabla sera el mismo del modelo pero en minuscula y en plural. Se debe definir aca los campos con que contara la tabla. Esta se puede generar mediante el sistema de migraciones (a explicar mas adelante) o directamente en el programa gestor de bd.
+
+3) Una vez que se crea la tabla es importante relacionarla con el framework, para ello se va a las archivos .env y database.php de la carpeta config y aqui se edita los valores segun la base de datos que se tenga. 
+Ejemplo: Para una base de datos creada en PhpMyAdmin llamada "Libreria" con una tabla "Libros" que contiene los campos "nombre", "autor" e "isbn" se relaciona de la siguiente forma:
+
+En archivo .env: 
+DB_CONNECTION=mysql_tests //Nombre del servicio de bd al que se conecta, este hace referencia al identificador de la bd en el archivo database.php
+DB_HOST=localhost //Direccion donde se encuentra la bd
+DB_PORT=3306
+DB_DATABASE=prueba //Nombre de la BD
+DB_USERNAME=root //Usuario para acceder a la bd
+DB_PASSWORD=   //Contraseña para acceder a la bd
+
+En archivo database.php:
+'mysql_tests' => [ //Nombre al que se hace referencia en .env
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', 'localhost'), //Por defecto es el que obtiene de .env
+            'port' => env('DB_PORT', '3306'),
+            'database' => 'prueba', //nombre de la tabla
+            'username' => 'root',//Datos de acceso
+            'password' => '',
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+            'engine' => null,
+
+Esto es para poder configurar la tabla correctamente, ahora se pasa a parte del CRUD.
+Las operaciones a realizar se definen dentro de un controlador al cual se hara referencia desde las rutas.
+
+Para leer todos: 
+
+ $libros = Book::all();
+    return view('libro.todos', ['libros' => $libros->toArray()]); //Se crea un metodo dentro del controlador donde se impriman todos los registros.
+
+Para crear un elemento:
+ 1) Se crea el formulario con sus respectivas validaciones donde se trataran los datos a enviar.
+ 2) Se define dentro del controlador la siguiente funcion: 
+	
+public function store(Request $request) //Se llama store a la funcion que guarda los datos.
+{
+    $this->validate($request, [
+        'name' => 'required|min:5', //Se definen los campos a llenar con sus validaciones respectivas
+        'author' => 'required|min:8',
+        'isbn' => 'required'
+    ]);
+}
+
+    Book::create($request->all()); //Crea un nuevo elemento del modelo con todos los datos obtenidos
+    return redirect('/libros'); //Redirije a la principal donde se muestran todos los libros (Esto se puede cambiar por cualquier otro codigo obviamente)
+
+ 3) Dentro del modelo creado se define el siguiente codigo para evitar errores: 
+	
+	protected $fillable = ['name', 'author', 'isbn']; //Ahi se definirian los datos que pueden ser llenados en el modelo
+
+*********FALTA ACTUALIZAR Y ELIMINAR DATOS***********
+
+------ Migraciones --------------
+Sirve basicamente como un sistema de control de versiones, pero con db en lugar de codigo.
+Este permite crear tablas directamente en una db asignada. 
+Para ello: 
+1)Se crea la migracion con el siguiente comando "php artisan make:migration create_nombretabla_table"
+2)Al acceder a la migracion creada se tiene dos metodos el up y el down. En el up se definiran los atributos de la tabla. En el down se definira las acciones para eliminar la tabla.
+3)Al definir ambos metodos se integra la migracion a la bd para eso se utiliza el comando "php artisan migrate", al ejecutarlo se actualiza la bd con nueva informacion.
+
+Comandos que se pueden utilizar con migrate: 
+migrate:install 
+Sirve para crear el repositorio de migraciones. Lo que hace es crear una tabla en la base de datos que sirve para llevar el control de las migraciones realizadas y su orden. Su ejecución se realiza con el comando completo "php artisan migrate:install". Este comando va implícito en el comando anterior, migrate.
+
+migrate:reset 
+Realiza una marcha atrás de todas las migraciones en el sistema, volviendo el schema de la base de datos al estado inicial.
+
+migrate:refresh 
+Vuelve atrás el sistema de migraciones y las vuelve a ejecutar todas.
+
+migrate:rollback 
+Vuelve hacia atrás la última migración realizada. Una migración puede incluir varias tablas que fueron migradas de una sola vez en el paso anterior.
+
+migrate:status 
+Te informa de las migraciones presentes en el sistema y si están ejecutadas o no.
+
+Para mas informacion consultar la documentacion oficial o esta direccion: http://www.desarrolloweb.com/articulos/migraciones-laravel.html
+
+--------- Seeders ------------
+Basicamente sirven para poder crear datos para probar nuestras DB. Tambien funcionan si en nuestro sistema necesitamos que la db tenga valores por defecto o se generen valores para comenzar.
+1) Se crea el seeder con el comando "php artisan make:seeder NombreSeeder"
+2) En el codigo del seeder se hace referencia al modelo del que es seeder ejm: para el seeder BookSeeder se le define el uso del modelo Book asi use "App\Book;".
+3) Dentro de la funcion run() se crea el nuevo modelo 
+ejm: 
+Book::create([
+'name' 				=>	'Vacas locas',
+'votes'				=>	33,
+'fulldescription'			=>	'lalala'
+]);
+4) En el archivo DatabaseSeeder se define el acceso al seeder de la siguiente forma:
+public function run()
+{
+    Model::unguard();
+
+     $this->call(BookSeeder::class);
+     $this->call(ReviewsSeeder::class);
+
+    Model::reguard();
+} //Nota: Definir el use del modelo "use Illuminate\Database\Eloquent\Model;", si no se define da error. 
+
+5) Listo el seeder se ejecuta con el siguiente comando "php artisan db:seed", para todos los seeders, o "php artisan db:seed --class=NombreDeSeederEspecifico.
+
+Nota: Utilizar libreria Faker para crear datos de prueba para la base de datos.
+	
+------------------- Errores y Login ------------------
+
+******* Errores ********
+
+Un proyecto que esta en desarrollo es posible que tenga algunos errores. El manejo de errores y exepciones esta ya configurado para cuando inicias un nuevo proyecto en Laravel. Normalmente, en un ambiente local se necesita ver esos errores para poder solucionarlos. Necesitamos esconder estos errores del usuario con ya esta lanzada la app. Esto se puedo lograr con la variable APP_DEBUG ubicada en el archivo de entorno .env alojada en la carpeta raiz de la aplicacion.
+
+Para un entorno local el valor de APP_DEBUG debe ser "true", pero en un entorno de produccion necesita estar establecida como "false" para que oculte los erroes al usuario.
+
+Nota: Luego de cambiar la variable APP_DEBUG se debe reiniciar el servidor Laravel.
+
+****** Login *************
+
+El login es un mecanismo importante mediante el cual el sistema puede señalar los errores generados. Es util para mejorar la confiabilidad del sistema. Laravel soporta diferentes modos de loggin como single, daily, syslog, y errorlog modes. Puedes definir estos modos en el archivo config/app.php.
+
+Puedes ver el registro de señalados en el archivo storage/logs/laravel.log
+
+---------------- Formularios -----------------
+
+Laravel proporciona varias etiquetas para manejar los formularios HTML mucho mas facil y de forma mas segura. Todos los elementos mas importantes de HTML son generados al usar Laravel. Para soportar esto, necesitamos agregar el paquete HTML a Laravel usando Composer.
+
+Pasos: 
+1)Ejecutar el siguiente comando "composer require laravelcollective/html" y hacer un composer update.
+2)Verificar en el archivo composer.json que el segmento "require" contiene ahora la siguiente linea "laravelcollective/html": "~5.0" //El 5.0 puede cambiar por la x version instalada.
+3)Agregar el nuevo proveedor al array en config/app.php  
+ 'providers' => [
+    // ...
+    'Collective\Html\HtmlServiceProvider',
+    // ...
+  ],
+4) Agregar las siguientes dos clases en el array alias del mismo archivo 
+'aliases' => [
+    // ...
+      'Form' => 'Collective\Html\FormFacade',
+      'Html' => 'Collective\Html\HtmlFacade',
+    // ...
+  ],
+
+Ya con esto se genera las etiquetas de formularios de Laravel. Para consultar como agregar cosas al formulario simplemente consultar aca: "https://laravelcollective.com/docs/5.0/html#opening-a-form"
+
+---------- Localizacion -------------
+
+Laravel posee un componente llamado localizacion que soporta diferentes lenguajes que puedan ser usados en la aplicacion. Necesitas guardar los todos los strings de diferente lenguaje en un archivo y ese archivo debe estar alojado en el directori resources/views. Necesitas crear un directorio aparte para cada lenguaje soportado. Todos los archivos de lenguaje deben retornar un array con un string como se muestra a continuacion:
+<?php
+return [
+   'welcome' => 'Welcome to the application'
+];
+Ejemplo: Creado 2 archivos de lenguaje una para español y otra para ingles. 
+
+1)Se guarda el archivo de ingles y el archivo de español en el archivo resources/lang/en/lang.php y resources/lang/es/lang.php respectivamente.
+2)Se crea el controlador que controlara los lenguajes
+3)Se crea la ruta que hara mencion del controlador, ruta la cual recibira un parametro que sera la localizacion.
+
+Ver ejemplo detallado en "http://www.tutorialspoint.com/laravel/laravel_localization.htm"
+
+------- Subir Archivos -------
+
+Subir archivos en Laravel es bastante sencillo. Todo lo que necesitamos hacer es crear una vista para subir que el usuario pueda subir un archivo y un controlador que procese esa solicitud.
+
+En el archivo de vista tenemos que generar un input para generar archivos, esto se hace con la siguiente linea de codigo "Form::file('file_name');"
+
+En el Form::open() necesitamos agregar ‘files’=>’true’. 
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------Identificar el archivo donde se generan las rutas de la aplicación------------
+Comenzamos viendo dónde se generan las rutas que nuestra aplicación va a responder, a través del framework Laravel. Estamos trabajando con la versión 5.1, aunque en todo Laravel 5 debe de ser igual.
+
+Navega con tu explorador de archivos a la carpeta app/Http y encontrarás allí un fichero llamado routes.php. Ese es el archivo que contiene todas las rutas de la aplicación.
+
+Una vez abierto observarás que tiene una llamada a un método Route::get(). Ese es el método que usaremos para generar las rutas.
+
+Crear nuestra primera ruta
+Guiándonos por el ejemplo de ruta que encontramos podemos crear nuestra propia ruta.
+
+Route::get('/test', function(){
+	echo "Esto es una simple prueba!!";
+});
+
+Aunque tendremos que volver en breve sobre las explicaciones del sistema de rutas, es importante señalar algunos puntos.
+
+Hay que fijarse que cualquier ruta corresponde con un verbo del HTTP (get, post, etc.), que es el nombre del método que estamos invocando sobre la clase Route. En nuestro caso usamos el método get, que es el más común de las acciones del protocolo HTTP. 
+
+Además observa que ese método recibe dos parámetros, el primero de ellos es el patrón que debe cumplirse para que esa ruta se active. En nuestra ruta hemos colocado "/test" que quiere decir que desde la home de la aplicación y mediante el nombre "test" se activará esa ruta. En este caso el patrón es una simple cadena, pero en general podrá ser mucho más complejo, generando partes de la ruta que sean parámetros variables. Todo eso lo estudiaremos más adelante. 
+
+Como segundo parámetro al método get() para definir la ruta indicamos una función con el código a ejecutar cuando Laravel tenga que procesarla. Observarás que es una "función anónima" cuyo código es un simple echo para generar una salida.

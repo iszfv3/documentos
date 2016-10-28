@@ -1,0 +1,778 @@
+Manual de uso basico de Bootstrap
+
+Antes de empezar proyecto siempre agregar a principio el meta="viewport".
+Usualmente toda caracteristica de bootstrap que se quiera agregar dentro de otra caracteristica se hace mediante <span>
+Los menu de navegacion de la pagina casi siempre se hacen en el header, ya que dan mejor aspecto. Siempre definirles como rol "navigation"
+
+-------------------- Para Grid ------------------------
+En el Grid solo se puede trabajar con 12 columnas, si son 3 las que necesito cada una debe ser de tamaño 4 y asi. 
+No se puede dejar con menos de 12 o mas. Se debe establecer condiciones para el responsitive design.
+
+class="container" --> centra lo que necesite centrar. Mas utilizada que container-fluid.
+class="container-fluid" --> el contenido abarca el 100% del tamaño.
+
+Para establecer fila: se le agrega a mi clase el "row" y se define en las columnas dentro del row el tamaño que estas tendran.
+ejemplo: <section class= "main row">
+		<article class="col-md-9">
+			<aside class="col-md-3">
+
+Existen 4 tipos de columnas: col-xs -> columna extra pequeña. Se usa mas que todo para celulares.
+			     col-sm -> columna pequeña. Se usa para las tablets.
+			     col-md -> columna mediana. Tablets mas grande, para diseño horizontal. 
+			     col-lg -> columna largue. Dispositivos grandes, computadores.
+
+Definir varios tipos de columnas dentro de la misma clase permite que el diseño se adapte automaticamente al tipo de pantalla. 
+ejemplo: class="col-md-4 col-sm-8" -> Define tamaño de 4 para tablets grandes y de 8 para tablets pequeñas.
+
+Si no defino las otras clases bootstrap asigna el tamaño automaticamente a las demas clases como la que se definio. 
+
+Para mover columnas a la derecha se utilza la clase "col-md-offset-4" el final indica la cantidad de columnas a desplazar. El md se cambia por el tipo de columna que se utilice.
+ 
+---------------- Tipografia y texto -----------------
+
+Etiqueta <small> para pequeño subtexto al lado de la oracion principal. 
+
+class="lead" -> Permite tener un parrafo un poco mas grande. 
+<mark> -> Le da un fondo a el texto para darle importancia.
+<del> -> tachar texto. 
+<s> -> la misma funcion que del.
+<ins> -> Subraya el texto.
+<u> -> Misma funcion de ins. Underline.
+<strong> -> negritas.
+<b> -> igual que strong.
+<em> -> Italicas.
+
+class="text-center" -> centra el texto.
+class="text-right" -> alinea a la derecha el texto.
+class="text-left" -> alinea a la izquierda el texto.
+class="text-justify" -> Justifica el texto.
+
+class="text-lowercase" -> Transforma a minuscula todo el texto.
+class="text-uppercase" -> Transforma a mayuscula todo el texto.
+class="text-capitalize" -> Primera letra de cada palabra en mayuscula. 
+
+<blockquote> -> citas de texto. 
+Nota: Footer dentro de blockquote crea un minitexto donde se puede colocar el autor de la frase que se cita.
+<cite> -> Da la fuente de donde se saco la cita. La muestra en cursiva. Colocar dentro de footer.
+
+<code> -> Le da estilo de codigo al texto. 
+<pre> -> Es un propio codigo que se inserta en la pagina. 
+
+Hay 6 clases para cambiar color de letra:
+class="text-muted"
+class="text-primary"
+class="text-success"
+class="text-info"
+class="text-warning"
+class="text-danger"
+
+Hay 5 colores de fondo:
+class="bg-primary"
+class="text-success"
+class="text-info"
+class="text-warning"
+class="text-danger"
+
+------------ Tablas -----------------
+Estas clases se aplican directamente en la etiqueta <table>
+
+class="table" -> Le da estilo a la tabla, por defecto la expande al 100% de la pagina.
+class="table-striped" -> Alterna colores de la tabla. 
+class="table-border"  -> Le da bordes a la tabla.
+class="table-hover" -> Cambia color al pasar el mouse.
+class="table-condensed" -> Tabla mas pequeña,borra espacio sobrante entre margen y valor.
+
+Clases que se pueden aplicar en tr y td:
+class="active" -> Selecciona el campo como activo por defecto.
+class="success" -> Agrega colores, se utilizan los mismos nombres pasados. Son solo 4 (success,info,danger,warning)
+
+Para diseño responsive de la tabla se guarda la tabla en un segundo div que contiene la clase class="table-responsive"
+
+---------- Formularios --------------------
+Todo control que sea input, select, textarea trabajan con una clase en especifico-> class="form-control" da estilos de bootstrap.
+
+Todos los controles soportados por bootstrap son: 
+================================================
+text
+password
+datetime
+datetime-local
+date
+month
+time
+week
+number
+email
+url
+search
+tel
+color 
+A todos estos se les puede aplicar el form-control.
+========================================
+
+Para crear grupo de formulario se crea un div que cubre los campos que quiero y se utiliza la clase class="form-group".
+class="help-block" -> Sirve para indicar alguna instruccion en el formulario. 
+
+Clase propia de la etiqueta form: class="form-inline" -> Todos los elementos los coloca en linea, uno al lado del otro.
+para que funcione todos los input deben de llamar a la clase form-control.
+
+class="sr-only" -> Permite agregar el label si no se ejecuta el placeholder. 
+class="checkbox" -> Se usa en el checkbox para colocarlo al lado del campo.
+class="input-group" -> Coloca todos los campos al lado del otro.
+class="input-group-addon" -> Hace un pequeño cuadro al lado del input.
+
+-------------------- Botones ---------------
+class="btn" -> Le da espaciado y padding quitando el estilo por defecto, no trabaja sola viene acompañada de la clase que le da estilo al boton.
+class="btn btn-default" -> Son 7 estilos distintos, los estilos son default,primary,success,info,warning,danger,link.
+La clase btn no solo sirve para botones, tambien se puede utilizar en las etiquetas <a>. Ejm: <a href="#" class="btn btn-default">
+El <!--optional theme--> de bootstrap le da un efecto de sombreado mas oscuro a cada boton.
+Para el tamaño de boton: class="btn-lg", el lg es largue. Se puede utilizar tambien "sm" para small y "xs" para extra small.
+Para cubrir el 100% con el boton se utiliza la clase: class="btn-block".
+class="active" -> Simula un boton activado. 
+funcion-> disabled permite desactivar el boton, se coloca despues de la clase del boton o del hiperlink.
+Todo esto tambien funcionan con los input type="button".
+
+----------------- Imagenes ----------------------
+
+class="img-responsive" -> Para que tenga diseño adaptable, se abarca el 100%
+class="img-rounded" -> No funciona en todos los navegadores, da pequeñas esquinas redondeadas a la imagen. 
+class="img-circle" -> Cambia la forma de la imagen a un circulo. 
+class="img-thumbnail" -> Redondea un poco las esquinas y coloca un borde. 
+
+------------------ Clases Auxiliares ----------------------
+class="pull-left" -> Envia algo a la izquierda, puede ser rigth tambien.
+class="clearfix" -> Hace un salto de linea, limpia formato. Se agrega con un div al final de todos los elementos. Se utiliza cuando el contenido se desfaza. 
+class="bg-success" -> Fondo con el color de success.
+class="center-block" -> Centra el contenedor, se debe dar medidas al contenedor para poder darle mejor ubicacion. 
+class="hidden" -> Oculta el contenedor.
+class="show" -> Muestra el contenedor. Se utiliza mas que todo para el diseño dinamico con js.
+
+---------------- Responsive Utilities --------------------
+
+class="visible-tamaño" -> puede ser lg, md, sm, xs. Permite mostrar un elemento hasta cierto tamaño de pantalla, si es mas pequeño o grande lo elimina.
+class="hidden-tamaño" -> Puede ocultar el contenido en el tamaño especificado.
+class="visible-md-inline" -> lo muestra como elemento en linea y no como elemento en bloque.
+class="visible-md-inline-block" -> lo muestra en linea siendo un elemento bloque en dispositivos medianos. Se puede cambiar el tamaño.
+class="visible-md-block" -> lo muestra como bloque en dispositivos medianos. 
+class="visible-print- " -> se define el tipo de elemento sea bloque, en linea o un bloque en linea. Aqui solo seria visible al imprimir.
+class="hidden-print- " -> Se oculta el elemento al imprimir.
+
+--------------- Iconos Glyphicons --------------------------
+
+Para agregar iconos hay reglas una de ellas es que se tiene que declarar una etiqueta vacia, por ejemplo un <span> y a ella crearle la clase que contendra el icono.
+ejm: <h1><span class="glyphicon glyphicon-asterisk"></span>Esto es un H1</h1> casi siempre se utiliza es span.
+
+Solo funciona un espaciado luego del icono, para mas de uno se debe utilizar css.
+
+Para agregar el icono a un boton se hace la misma funcion que con un parrafo o lo que sea, se utiliza el span vacio y ya. 
+ejm: <button class="btn btn-primary"><span class="glyphicon glyphicon-bell"></span></button>
+
+Para agregar texto al boton con el icono tiene que ser despues de que cierre el span.
+
+--------------- Dropdown (menu de seleccion) --------------------------
+
+Para crear un dropdown primeramente este debe estar contenido en un div.dropdown dentro se define el boton con los siguientes valores:
+<button class="btn btn-success dropdown-toggle" type="button" id="dropdownmenu1" data-toggle="dropdown" aria-extended="true"> obviamente el tipo de boton se puede cambiar
+class="caret" -> Crea una flechita hacia abajo muy practica para menus desplegables. 
+Para crear la lista dentro del menu se debe de crear un <ul> fuera del boton con una clase class="dropdown-menu" para que los relacione.
+Aparte se deben agregar los dos campos role="menu" y aria-labelledby="nombre que se le coloco en el id" que son por defecto y necesarios para que funcione correctamente.
+Se crean todos los elementos <li> sus roles, si se quiere crear una division solo se crea un li.divider
+Para deshabilitar un elemento se utiliza una clase class="disabled" dentro de el. 
+El boton de dropdown como es un boton se le puede aplicar todas las propiedades de los botones.
+
+--------------- Grupos de Botones --------------------------
+ 
+Los grupos de botones eliman espacios entre botones que esten cercanos.
+
+Para utilizarlos se debe tener el grupo de botones contenido en un div.btn-group. Esto los une y da estilo automaticamente.
+
+Se puede hacer toolbars con los grupos de botones ya que estos son elementos en linea. Para eso, se encierra todos los grupos de botones necesarios en un div.btn-toolbar.
+
+Se puede hacer un class="btn-group-tamaño" y ahi se le asigna el tamaño que se le quiere dar al grupo, puede ser md,sm,lg.
+
+class="btn-group-vertical"-> Para agrupar botones verticalmente. 
+
+Se puede agregar dropdown button a los grupos de botones, de ahi se puede hacer un menu desplegable. Para ello se necesita que dentro del grupo de botones se defina un grupo para los dropdowns.
+ejm: <div class="btn-group">
+        <button class="btn btn-default">Derecha</button>
+        <button class="btn btn-default">Centro</button>
+        <button class="btn btn-default">Izquierda</button>
+
+        <div class="btn-group">
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownmenu1" data-toggle="dropdown" aria-expanded="true">
+              Dropdown
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownmenu1">
+              <li role="presentation" class="dropdown-header">Header</li>
+              <li class="divider"></li>
+              <li role="presentation"><a role="item" href="#">Item #1</a></li>
+              <li role="presentation"><a role="item" href="#">Item #2</a></li>
+              <li role="presentation"><a role="item" href="#">Item #3</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+Como se ve sale un grupo hijo para el dropdown del grupo padre que abarca todo los botones.
+
+Para hacer que todos los botones tengan el mismo tamaño se hace uso del class="btn-group btn-group-justified"
+ejm: <div class="btn-group btn-group-justified">
+        <a href="#" class="btn btn-default">1</a>
+        <a href="#" class="btn btn-default">2</a>
+        <a href="#" class="btn btn-default">3</a>
+      </div>
+
+--------------- Dropdown buttons --------------------------
+
+Aqui se puede hacer un split button que seria un boton de dos partes para ello se define un boton antes de definir el dropdown.
+ejm:     <div class="btn-group">
+          <button class="btn btn-default">Texto</button>
+          <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+             <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Item #1</a></li>
+            <li><a href="#">Item #2</a></li>
+            <li><a href="#">Item #3</a></li>
+            <li><a href="#">Item #4</a></li>
+            <li><a href="#">Item #5</a></li>
+          </ul>
+        </div>
+class="dropup" -> muestra el contenido del dropdown hacia arriba. Nunca se utiliza en la parte de arriba del body obviamente.
+
+--------------- Grupo de Inputs --------------------------
+
+Para utilizarlo los inputs deben estar dentro de un grupo de formulario. Dentro de este se define la clase class="input-group"
+a cada campo de formulario que creo se le agrega la clase class="form-control"
+ejm: <div class="form-group">
+          <div class="input-group">
+            <input type="text" class="form-control">
+          </div>
+        </div>
+Para crear una especie de placeholder pero que se vea en todo navegador puedo utilizar un addon dentro de un span.
+ejm:   <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon">Correo</span>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+
+Si quiero que se agregue de lado derecho solo tengo que colocar el span luego del input.
+
+Para agregarle un checkbox o radio se le agrega dentro del span un input type igual al que se quiera agregar, luego se define fuera del span un input donde se colocara el texto o el input x que se quiera definir.
+ejm: <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <input type="checkbox">
+            </span>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+Para agregar botones en lugar de colocar el addon en la clase del span se coloca es "btn". 
+Se puede agregar un dropdown igualmente, se debe definir todas las propiedades de este y listo.
+
+--------------- Navegaciones --------------------------
+
+Navegacion por tabs:
+Para hacer un menu de navegacion por tabs se necesita tener una lista ul con elementos li, al ul se le define una clase class="nas nav-tabs" y se deja los hipervinculos de los li.
+ejm: <ul class="nav nav-tabs">
+          <li rol="presentation"><a href="#">Item #1</a></li>
+          <li rol="presentation"><a href="#">Item #2</a></li>
+          <li rol="presentation"><a href="#">Item #3</a></li>
+        </ul>
+
+Navegacion por pastillas o pills (Botones redondeados):
+Mismo procedimiento anterior solo se cambia el <ul class="nav nav-tabs"> por <ul class="nav nav-pills">
+
+Para que quede orientado verticalmente se hace uso de la clase class="nav-stacked"
+
+class="nav-justified" -> Los botones se justifican, es decir se reparten todo el tamaño del contenedor de forma igual.
+
+Se puede utilizar tanto la clase active como disabled en los botones.
+
+Se puede agregar dropdowns, se coloca su sintax como antes solo que se empieza a definir el dropdown desde el li y no desde el div.
+
+
+--------------- Barras de Navegacion --------------------------
+
+Se les puede agregar un dropdown comun y corriente, de tener problemas es que se le debe definir un role="button" todo esto definido dentro de la <a>.
+ejm: <nav class="navbar navbar-default"> -> clase para declarar una barra de navegacion
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" data-toggle="collapse" data-target="#navbar-1" class="navbar-toggle collapsed"> -> el # dentro del data-target es para que sepa que ese nombre que le sigue al # es el nombre del id.
+              <span class="sr-only"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a href="#" class="navbar-brand">Isaac Simosa</a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="navbar-1"> -> Aca es donde identica el nombre del id.
+            <ul class="nav navbar-nav">
+              <li><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                  Dropdown <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Item #1</a></li>
+                  <li><a href="#">Item #2</a></li>
+                  <li class="divider"></li>
+                  <li><a href="#">Item #4</a></li>
+                </ul>
+              </li>
+            </ul>
+	</div>
+        </div>
+      </nav>
+
+Para crear una barra de busqueda dentro de la barra de navegacion:
+		<form action="" class="navbar-form navbar-left" role="search"> -> se debe definir el rol de la barra como tipo search.
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Buscar">
+              </div>
+            </form>
+Buscar la documentacion el monton de cosas que deja hacer el menu de navegacion. 
+
+Para hacer que la barra este fija en la pantalla sin importar que hagan scroll se utiliza la clase 
+class="navbar-fixed-top" ahi se mantiene fija, pero se ubica en el 100% de la pantalla. Eso si no se tiene un container.
+Para que quede abajo fija se utiliza bottom.
+con la clase class="navbar-inverse" el fondo queda oscuro y las letras blancas. 
+
+En caso que se utilice fixed-top es necesario definir un padding para el body de 80px que es el tamaño de la barra. 
+
+--------------- Migas de Pan --------------------------
+
+Estas permiten que el usuario sepa en todo momento en que parte de la pagina esta, si es en algun post, en una busqueda, etc.
+ejm: Inicio>Articulo 1> Algun Tema.
+
+class="breadcrumb" -> Se define asi dentro de la clase ol que identificaria los sitios donde puede estar el user. Todos los li creados tienen su hipervinculo para que puedan regresar.
+
+
+--------------- Paginacion --------------------------
+
+Se utiliza la clase class="pagination". Esta debe estar contenida dentro de un <nav> y debe ser atributo de un ul, par poder definir cada li respectivo.
+
+El li donde estoy se debe mostrar class="disabled"
+
+Para agregar flechitas se hace uso de este codigo: <li><a href="#">&laquo;</a></li> -> para flechas asi "<<" 
+						   <li><a href="#">&raquo;</a></li> -> para flechas asi ">>" 
+
+Se puede cambiar el tamaño de la paginacion se utiliza la clase class="pagination pagination-lg" se puede cambiar lg por sm. El md es el por defecto.
+
+class="pager" -> Indica que sera paginacion de Anterior-Siguiente. Se deben definir los dos elementos li que serian el previous y el next.
+ejm: <ul class="pager"> 
+	<li class="pervious"><a href="#">Anterior</a></li>
+	<li class="next"><a href="#">Siguiente</a></li>
+     </ul>
+Se debe guardar en contenedores para que no ocupen el 100% de la pagina. 
+Para agregar flechas tipo "-> y <-" se utiliza "&larr;" y "&rarr;" respectivamente. 
+
+--------------- Labels y Etiquetas --------------------------
+
+Para agregar un label se debe hacer uso de la clase class="label label-default" este debe estar contenido dentro de un <span> donde se mostrara el mensaje del label.
+Se puede utilizar tanto en todo los <h> como en los <p> el default puede cambiar por todos primary,info,success y los otros de botones.
+
+Se puede colocar el span dentro de una <a> para que se vea una etiqueta como hipervinculo. 
+
+--------------- Badges o Insignias (como un pequeño numerito) --------------------------
+
+Se utiliza la clase class="badge" dentro de un span como todo lo hecho anteriormente. 
+ejem: <div class="container">
+     <a href="#">Mensajes <span class="badge">15</span></a>
+  </div>
+se puede declarar dentro de un boton igualmente.
+
+En una barra de navegacion quedaria asi: 
+<ul class="nav nav-pills">
+       <li class="active"><a href="#">Inicio <span class="bagde">45</span></a></li>
+       <li><a href="#">Perfil</a></li>
+       <li><a href="#">Mensajes <span class="bagde">45</span></a></li>
+     </ul>
+
+--------------- Jumbotron --------------------------
+
+Hace un encambezado como para resaltar la informacion quedando bastante bien. 
+
+Para usarlo solo se debe definir un div donde se guardara el contenido asi <div class="jumbrotron"> toda la informacion </div>
+
+Para hacer que el jumbotron abarque el 100% se debe colocar antes del container. Se define el container luego del jumbotron para manterner el contenido centrando.
+
+Con  container-fluid abarca el 100% pero da un pequeño margen. 
+
+
+--------------- Encabezado de Pagina --------------------------
+
+class="page-header" -> Le da un estilo bastante bien al titulo. Se debe agregar en un div que contenga al titular.
+ejm: <div class="page-header">
+	<h1> Titulo de la pagina </h1>
+     </div>
+
+--------------- Miniaturas Thumbnails --------------------------
+
+Permiten darle efectos a las imagenes y div que contengan imagenes. 
+
+Se declara la clase class="thumbnail" en el tag <a> o <span> donde esta contenida la imagen.
+ejm: <div class="col-xs-6 col-md-3">
+        <a href="" class="thumbnail"><img src="http://cdnb.20m.es/sites/127/2015/12/Star-Wars-VII-promo.jpg" alt=""></a>
+      </div>
+Para agregarle mas contenido a la imagen y transformarla en una tarjeta solo se debe incluir la imagen dentro de un contenedor.
+ejm: <div class="col-xs-6 col-md-3">
+        <div class="thumbnail">
+          <img src="http://cdnb.20m.es/sites/127/2015/12/Star-Wars-VII-promo.jpg" alt="">
+          <div class="caption">
+            <h3>Texto</h3>
+          </div>
+        </div>
+      </div>
+Luego del h3 se puede colocar un parrafo, un boton, un dropdown, etc. 
+
+--------------- Mensaje de Alerta --------------------------
+
+Son solo 4 colores se declara con la clase class="alert alert-success" se puede cambiar por info, warning, danger.
+
+Para que tenga un boton para cerrar la alerta se crea un boton antes del texto con una clase llamada class="close" y un atributo data-dimiss="alert"
+ejm: <div class="alert alert-success">
+	<button class="close" data-dimiss="alert"><span>&times;</span></button> -> el "&times;" genera una x con cierto estilo.
+	Mensaje de Alerta
+     </div>
+
+Es necesario que esten los script de jquery y bootstrap para que funcione correctamente.
+
+--------------- Barra de Progreso --------------------------
+
+Se crea con el siguiente codigo:
+   <div class="progress">
+    <div class="progress-bar progress-bar-warning" role="progressbar" style="width:1% ; min-width:10%"> -> Es recomendable especificar en el rol progressbar
+      $%
+    </div>
+  </div>
+Primero se crea un div.progress y dentro de el el div.progress-bar. El warning se puede cambiar por cualquier otro color.
+Los valores del style se pueden definir en un css aparte o directamente en la barra, es necesario definir el ancho por defecto del progreso y el minimo de ancho que puede tener.
+
+div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" style="width:1% ; min-width:10%"> -> El striped le agrega unas lineas en diagonal en la barra. Si le agregas la clase active se ven en movimiento las lineas.
+
+Se puede unir varias barras de distintos colores en el mismo progreso para ello dentro del div.progress se le va colocando todos los otros div de los distintos tipos de progresos.
+ejm: 
+<div class="progress">
+    <div class="progress-bar progress-bar-warning" role="progressbar" style="width:1% ; min-width:10%"> -> Es recomendable especificar en el rol progressbar
+      $%
+    </div>
+
+	<div class="progress-bar progress-bar-succes-bar-striped active" role="progressbar" style="width:1% ; min-width:10%"> -> Es recomendable especificar en el rol progressbar
+      $%
+    </div>
+  </div> Asi se le asigna varios estilos. 
+
+
+--------------- Grupo de Listas --------------------------
+
+Sirven para mostrar contenido mas ordenado, encierra elementos para asociarlos en un mismo estilo con mas orden.
+Para hacer un grupo de listas se hace asi:   <div class="row">
+      <div class="col-md-4">
+        <li class="list-group-item list-group-item-info">Lorem ipsum dolor sit amet.</li>
+        <li class="list-group-item list-group-item-warning">Lorem ipsum dolor sit amet.</li>
+        <li class="list-group-item list-group-item-danger">Lorem ipsum dolor sit amet.</li>
+        <li class="list-group-item list-group-item-success">Lorem ipsum dolor sit amet.</li>
+        <li class="list-group-item">Lorem ipsum dolor sit amet.</li>
+      </div>
+    </div> 
+los <li> se pueden cambiar por <a> que pueden ser unicamente un hipervinculo o se pueden desarrollar en mini articulos que redirijan al articulo principal, tipo blog.
+ejm:  
+<div class="col-md-4">
+        <a href="#" class="list-group-item">
+		<h4> Encabezado </h4>
+		<p>Lorem ipsum dolor sit amet.</p>	
+	<a/>
+
+
+--------------- Medio Object --------------------------
+
+Esta clase permite orientar los archivos dentro del contenido como se quiera.
+ejm:
+<div class="container-fluid">
+    <br>
+    <div class="col-md-5">
+      <div class="media">
+        <div class="media-left"><a href="#">Algo</a></div>
+      </div>
+    </div>
+  </div>
+
+ahi me mostraria un enlace a la izquierda de mi columna, el enlace se puede cambiar por un texto, una imagen, otro media dentro de ese media, etc.
+
+Para hacer un media dentro de otro quedaria asi:
+<div class="container-fluid">
+    <br>
+    <div class="col-md-5">
+      <div class="media">
+        <div class="media-left"><a href="#">Algo</a></div>
+      </div>
+	<div class="media-body">
+        <p> algun texto asdnaksdkabsdkabdkjbakd </p>
+      </div>
+    </div>
+  </div>
+ahi se crea un texto al lado del enlace. La posiciones del media pueden ser botton y middle, un media left o rigth normal quedaria arriba. 
+
+Los objetos media se pueden anidar uno dentro de otro, eso da el efecto de cuando se responde un comentario por ejemplo.
+ejm: <div class="container-fluid">
+    <br>
+    <div class="col-md-5">
+      <div class="media">
+        <div class="media-left"><a href="#">Algo</a></div>
+      </div>
+	<div class="media-body">
+        <p> algun texto asdnaksdkabsdkabdkjbakd </p>
+	<div class="container-fluid">
+    <br>
+    <div class="col-md-5">
+      <div class="media">
+        <div class="media-left"><a href="#">Algo</a></div>
+      </div>
+	<div class="media-body">
+        <p> algun texto asdnaksdkabsdkabdkjbakd </p>
+      </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </div>
+
+De esa manera, que creo pegue mal xD, se hace el efecto de cuando se responden comentarios. NO UTILIZAR PARA MAQUETAR PARA ESO SE HACEN TABLAS. 
+
+
+--------------- Paneles --------------------------
+
+Encerrar contenido con efecto de que estan dentro de una caja. Se les pueden agregar encabezados y pies de paginas.
+Codigo:
+  <div class="panel panel-default">
+    <div class="panel-heading">Encabezado</div>
+    <div class="panel-body">Lorem ipsum dolor sit amet.</div>
+    <div class="panel-footer">Footer</div>
+  </div>
+
+Ahi se crea el panel. El panel-heading permite crear el encabezado, el panel-footer el pie de pagina.
+El default puede cambiarse por cualquier otro color, puede ser success, primary, info, warning, danger. 
+
+--------------- Ventanas Emergentes (parte de los componentes js de bootstrap) --------------------------
+
+Esto da un efecto como lo hace facebook al sobreponerte las fotos. Se pueden crear con el siguiente codigo:
+
+  <a href="#ventana1" class="btn btn-primary btn-lg" data-toggle="modal">Boton</a>
+
+    <div class="modal fade" id="ventana1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Header de la ventana -->
+          <div class="modal-header">
+            <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times</button>
+            <h4 class="modal-title">Encabezado de la ventana</h4>
+          </div>
+          <!-- Contenido de la Ventana -->
+          <div class="modal-body">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident iusto ad, odio nihil vitae, omnis temporibus harum reprehenderit minima voluptas? Quaerat voluptatum reiciendis adipisci nesciunt hic fugit aliquam porro incidunt nemo doloribus maxime, odit alias blanditiis expedita labore officiis sed obcaecati, odio laboriosam, exercitationem sit dignissimos! Sequi non cum maxime voluptatem earum, similique iusto delectus distinctio libero, animi aliquam molestias quisquam id, incidunt eum. Iusto modi voluptates possimus numquam unde pariatur minus consectetur labore rem, porro harum saepe aut ad molestiae facilis repellat vel rerum omnis. Illo odit obcaecati magni eos quam, labore impedit reprehenderit itaque rem, ducimus, adipisci reiciendis?</p>
+          </div>
+
+          <!-- Footer de la ventana -->
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default">Cerrar</button>
+            <button type="button" class="btn btn-success">Guardar</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+Primero se le debe identificar en el hipervinculo a el id que se hace referencia, en este caso es al div que contiene el modal fade.
+Luego en ese div se define lo que sera el contenido o dialogo del modal, se puede definir primeramente el header con un modal-header, el body con un modal-body y el footer con un modal-footer.
+Hay un atributo llamado data-dismiss esto lo que permite es cerrar la ventana emergente al hacer click en el boton, imagen, simbolo o lo que sea que la contenga.
+Ese data-dismiss siempre hace referencia al modal para que sepa que es eso lo que tiene que cerrar. Por ultimo en el ultimo boton se puede definir funciones con js para que haga cualquier cosa.
+En resumen el modal tiene 3 partes, head,body y footer. Con eso puedo hacer desastre. 
+
+--------------- Componente Scrollspy (Cambia automaticamente a la seccion que le indique al hacer click, evita el hacer mucho scroll) --------------------------
+
+<body data-spy="scroll" data-target="#navegacion">
+  
+  <div class="collapse navbar-collapse" id="navegacion">
+    <ul class="nav navbar-nav" role="tablist">
+      <li class="active"><a href="#seccion1">Seccion 1</a></li>
+      <li><a href="#seccion2">Seccion 2</a></li>
+      <li><a href="#seccion3">Seccion 3</a></li>
+    </ul>
+  </div>
+
+</body>
+
+Se debe definir en body los componentes data-spy="scroll" y data-target="el id que me interesa". Asi se reconoce en que posicion ubicarse.
+A cada href se le coloca el simbolo de # para que sepa que es la referencia al id donde esta el articulo que se busca. 
+Se debe crear un boton el en cual debe estar definido el data-toogle="collapse" y data-target="id al que hace referencia el body".
+Dentro del boton se pueden definir span para los detalles. 
+
+--------------- Componente Collapse (Acordeon o Botones de Mostrar/Ocultar contenido) --------------------------
+
+Primero se debe crear un <a> donde se ejecuta la funcion con un atributo data-toggle="collapse" y un href="#nombredelid"
+Se definie un div donde estara el contenido a mostrar con una clase llamada "collapse" y un id="nombrequequiera". 
+Dentro de ese div se crea otro con la clase "well" -> Permite agregar texto a una caja con efecto de caja subida en pantalla.
+
+Codigo:<a href="#seccion" data-toggle="collapse" class="btn btn-primary">Mostrar / Ocultar</a>
+      <div id="seccion" class="collapse">
+        <br>
+        <div class="well">
+        </div>
+      </div>
+
+Acordeon:
+
+    <div class="panel-group" id="accordion" role="tablist">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading1">
+          <h4 class="panel-title">
+            <a href="#collapse1" data-toggle="collapse" data-parent="#accordion">
+              Encabezado #1
+            </a>
+          </h4>
+        </div>
+
+        <div id="collapse1" class=" panel-collapse collapse in">
+          <div class="panel-body">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis assumenda sapiente quos?
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading2">
+          <h4 class="panel-title">
+            <a href="#collapse2" data-toggle="collapse" data-parent="#accordion">
+              Encabezado #2
+            </a>
+          </h4>
+        </div>
+
+        <div id="collapse2" class=" panel-collapse collapse in">
+          <div class="panel-body">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis assumenda sapiente quos?
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading3">
+          <h4 class="panel-title">
+            <a href="#collapse3" data-toggle="collapse" data-parent="#accordion">
+              Encabezado #3
+            </a>
+          </h4>
+        </div>
+
+        <div id="collapse3" class=" panel-collapse collapse in">
+          <div class="panel-body">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis assumenda sapiente quos?
+          </div>
+        </div>
+      </div>
+    </div>
+
+Reemplazar por lo necesario. 
+
+--------------- Tabs Dinamicas --------------------------
+
+<div role="tabpanel">
+
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" close="active"><a href="#seccion1" aria-controls="seccion1" data-toggle="tab" role="tab">Seccion # 1</a></li>
+            <li role="presentation"><a href="#seccion2" aria-controls="seccion2" data-toggle="tab" role="tab">Seccion # 2</a></li>
+            <li role="presentation"><a href="#seccion3" aria-controls="seccion3" data-toggle="tab" role="tab">Seccion # 3</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div role="tabpanel" id="seccion1" class="tab-pane active">
+              <h3>Seccion #1</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, mollitia alias voluptate in, fugit similique illum autem totam quam laboriosam.</p>
+            </div>
+          </div>
+
+          <div class="tab-content">
+            <div role="tabpanel" id="seccion2" class="tab-pane">
+              <h3>Seccion #2</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, mollitia alias voluptate in, fugit similique illum autem totam quam laboriosam.</p>
+            </div>
+          </div>
+
+
+          <div class="tab-content">
+            <div role="tabpanel" id="seccion3" class="tab-pane">
+              <h3>Seccion #3</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, mollitia alias voluptate in, fugit similique illum autem totam quam laboriosam.</p>
+            </div>
+          </div>
+        </div>
+ 
+Cambiar los valores pertinentes y ahi queda las tabs dinamicas. 
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
